@@ -1,6 +1,6 @@
 # ORE-Wizard
 
-ORE CLI management tool 
+ORE-Wizard is a management tool designed to facilitate the management of solana keypairs and mining scripts for the ORE CLI (https://ore.supply/). It streamlines operations such as keypairs setup, RPC URL updates, balance checks, multi-session ore mining, and automated reward claiming.
 
 ## Prerequisites
 
@@ -22,7 +22,12 @@ ORE CLI management tool
 
 ## Installation
 
-placeholder
+- Clone the repository and navigate to the project directory.
+
+- Add the project directory to the PATH environment variable.
+    ```bash
+    export PATH=$PATH:/path/to/ore-wizard
+    ```
 
 ## Script Usage
 
@@ -65,6 +70,6 @@ MAKE SURE TO FUND THE ADDRESSES BEFORE STARTING THE MINING SESSIONS.
 ## Debugging
 
 Account_Not_Found: 
-- Transfer 0.00000001 ORE to the address and try again.
-- or run `spl-token create-account oreoN2tQbHXVaZsr3pf66A48miqcBXCDJozganhEJgz` for the address and try again. 
-Use `solana config set --keypair <path_to_keypair>` to set the keypair for the account.
+- Transfer a small amount of ORE to the problematic address, or
+- Run `spl-token create-account oreoN2tQbHXVaZsr3pf66A48miqcBXCDJozganhEJgz` for the address and try again. 
+  Set the correct keypair with `solana config set --keypair <path_to_keypair>` before running the above command.

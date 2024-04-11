@@ -22,32 +22,47 @@ while [[ "$#" -gt 0 ]]; do
     shift
 done
 
-# Function to get the current reward balance
+# Validate the recipient address if not empty
+if [[ -n "$recipient" ]]; then
+    if ! [[ "$recipient" =~ ^[0-9a-zA-Z]{32,44}$ ]]; then
+        echo "Invalid recipient address: $recipient"
+        exit 1
+    fi
+fi
+
+# Get the current reward balance
 get_reward_balance() {
     addr=$(solana-keygen pubkey "$keypair")
     balance=$(ore rewards "$addr" | grep -oE '[0-9]+(\.[0-9]+)?')
+    if [[ -z "$balance" ]]; then
+        echo "Failed to fetch rewards for $addr."
+        balance=0
+    fi
     echo "$balance"
 }
 
-# Function to calculate sleep time
+# Calculate sleep time
 calculate_sleep_time() {
     current_reward=$1
-    # Ensure current_reward is a number
-    if [[ -z "$current_reward" || "$current_reward" == "null" ]]; then
+    if [[ -z "$current_reward" || ! "$current_reward" =~ ^[0-9]+(\.[0-9]+)?$ ]]; then
+        echo "Invalid current reward: $current_reward"
         current_reward=0
     fi
-    remaining=$(echo "$trigger_level - $current_reward" | bc)
-    hours_left=$(echo "scale=2; $remaining / $hourly_rate" | bc)
-    sleep_seconds=$(echo "$hours_left * 3600 / 1" | bc)
 
-    # Ensure sleep_seconds is an integer and greater than 0
-    sleep_seconds=$(echo "$sleep_seconds/1" | bc)  # Convert to integer
-    if ! [[ "$sleep_seconds" =~ ^[0-9]+$ ]] || [ "$sleep_seconds" -le 0 ]; then
-        echo "Invalid sleep time calculated: $sleep_seconds seconds. Defaulting to 1 hour."
-        sleep_seconds=3600  # Default to 1 hour if calculation fails
+    remaining=$(echo "$trigger_level - $current_reward" | bc)
+    if [[ $(echo "$remaining <= 0" | bc) -eq 1 ]]; then
+        remaining=0
     fi
 
-    echo $sleep_seconds
+    hours_left=$(echo "scale=2; $remaining / $hourly_rate" | bc)
+    sleep_seconds=$(echo "scale=0; $hours_left * 3600 / 1" | bc)
+
+    # Ensure sleep_seconds is positive
+    if [[ "$sleep_seconds" -le 0 ]]; then
+        sleep_seconds=3600  # Default to 1 hour if calculation fails or is below zero
+    fi
+
+    echo "$sleep_seconds"
 }
 
 

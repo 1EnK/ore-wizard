@@ -11,6 +11,9 @@ if [ ! -f "$addr_list" ]; then
     exit 1
 fi
 
+echo "Address                                : Rewards"
+echo "-------------------------------------- : -------"
+
 # Read each address from the file and accumulate the rewards
 while IFS= read -r addr; do
     if [[ -z "$addr" ]]; then
@@ -18,16 +21,14 @@ while IFS= read -r addr; do
         continue
     fi
 
-    reward=$(ore rewards "$addr" | grep -oP '\d+\.\d+')  # Assuming the rewards are in a format that can be parsed with this regex
-
+    reward=$(ore rewards "$addr" 2>/dev/null | grep -oP '\d+\.\d+')
     if [[ -z "$reward" ]]; then
-        address_count=$((address_count + 1))
-        echo "No reward data available for $addr."
+        echo "$addr : No reward data available"
     else
-        address_count=$((address_count + 1))
         total_rewards=$(echo "$total_rewards + $reward" | bc)
         echo "$addr : $reward ORE"
     fi
+    address_count=$((address_count + 1))
 done < "$addr_list"
 
-echo "Total rewards: $total_rewards ORE | $address_count addresses"
+echo "Total rewards: $total_rewards ORE | Processed $address_count addresses"

@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Define the SPL token address and set the default address list file
-token_address="oreoN2tQbHXVaZsr3pf66A48miqcBXCDJozganhEJgz"
+# Default address list file
 addr_list="$(dirname "$0")/../addr_list.txt"
 
 # Check if the address list file exists
@@ -10,14 +9,25 @@ if [ ! -f "$addr_list" ]; then
     exit 1
 fi
 
-# Read each address from the file and check the SPL token balance
-while IFS= read -r owner_address; do
-    if [[ -z "$owner_address" ]]; then
+echo "Address                                : Balance"
+echo "-------------------------------------- : -------"
+
+# Read each address from the file and check the SOL balance
+while IFS= read -r addr; do
+    if [[ -z "$addr" ]]; then
         echo "Skipping empty line"
         continue
     fi
 
-    balance=$(spl-token balance "$token_address" --owner "$owner_address")
+    # Get the balance for the address
+    balance=$(solana balance "$addr" 2>/dev/null | awk '{print $1}')
+    if [[ -z "$balance" ]]; then
+        echo "$addr : Error retrieving balance"
+        continue
+    fi
 
-    echo "$owner_address : $balance ORE"
+    # Print the address and its balance in SOL
+    echo "$addr : $balance SOL"
 done < "$addr_list"
+
+echo "SOL balance check completed."

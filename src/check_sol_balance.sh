@@ -9,6 +9,9 @@ if [ ! -f "$addr_list" ]; then
     exit 1
 fi
 
+echo "Address                                : Balance"
+echo "-------------------------------------- : -------"
+
 # Read each address from the file and check the SOL balance
 while IFS= read -r addr; do
     if [[ -z "$addr" ]]; then
@@ -17,7 +20,11 @@ while IFS= read -r addr; do
     fi
 
     # Get the balance for the address
-    balance=$(solana balance "$addr" | awk '{print $1}')
+    balance=$(solana balance "$addr" 2>/dev/null | awk '{print $1}')
+    if [[ -z "$balance" ]]; then
+        echo "$addr : Error retrieving balance"
+        continue
+    fi
 
     # Print the address and its balance in SOL
     echo "$addr : $balance SOL"

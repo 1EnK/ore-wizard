@@ -3,30 +3,40 @@
 # Default relative path to the scripts directory
 SCRIPT_DIR="$(dirname "$0")/src"
 
+execute_script() {
+    script_path="$SCRIPT_DIR/$1"
+    if [ -f "$script_path" ] && [ -x "$script_path" ]; then
+        echo "Executing $script_path..."
+        "$script_path"
+    else
+        echo "Script $script_path not found or not executable."
+    fi
+}
+
 case "$1" in
     --setup)
-        "$SCRIPT_DIR/ore_setup.sh"
+        execute_script "ore_setup.sh"
         ;;
     --update-urls)
-        "$SCRIPT_DIR/update_urls.sh"
+        execute_script "update_urls.sh"
         ;;
     --sol-balance|-s)
-        "$SCRIPT_DIR/check_sol_balance.sh"
+        execute_script "check_sol_balance.sh"
         ;;
     --rewards)
-        "$SCRIPT_DIR/check_ore_rewards.sh"
+        execute_script "check_ore_rewards.sh"
         ;;
     --claim)
-        "$SCRIPT_DIR/claim_ore_batch.sh"
+        execute_script "claim_ore_batch.sh"
         ;;
     --ore-balance|-o)
-        "$SCRIPT_DIR/check_ore_balance.sh"
+        execute_script "check_ore_balance.sh"
         ;;
     --start-workers|-w)
-        "$SCRIPT_DIR/start_worker_screens.sh"
+        execute_script "start_worker_screens.sh"
         ;;
     --pubkeys)
-        "$SCRIPT_DIR/fetch_pubkey.sh"
+        execute_script "fetch_pubkey.sh"
         ;;
     --help)
         echo "Usage: $0 COMMAND"
@@ -37,13 +47,13 @@ case "$1" in
         echo "  --rewards       Check the ORE rewards for each address."
         echo "  --claim         Automate claiming ORE rewards for configured wallets."
         echo "  --ore-balance   Check the ORE balance for each address."
-        echo "  --start-worker  Start multiple screens for ORE mining sessions."
+        echo "  --start-workers Start multiple screens for ORE mining sessions."
         echo "  --pubkeys       Fetch the public keys for each address and export to addr_list.txt."
         echo ""
         echo "Options:"
         echo "  -s, --sol-balance   Check the SOL balance for each address."
         echo "  -o, --ore-balance   Check the ORE balance for each address."
-        echo "  -w, --start-worker  Start multiple screens for ORE mining sessions."
+        echo "  -w, --start-workers Start multiple screens for ORE mining sessions."
         echo ""
         echo "Example:"
         echo "  $0 --setup       Initialize and configure wallets and mining scripts."
