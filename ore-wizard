@@ -32,36 +32,31 @@ case "$1" in
     --ore-balance|-o)
         execute_script "check_ore_balance.sh"
         ;;
-    --start-workers|-w)
-        execute_script "start_worker_screens.sh"
+    --start-miners|-m)
+        execute_script "start_miners.sh"
         ;;
     --pubkeys)
         execute_script "fetch_pubkey.sh"
         ;;
-    --help)
+    --help|-h)
         echo "Usage: $0 COMMAND"
         echo "Commands:"
-        echo "  --setup         Initialize and configure wallets and mining scripts."
-        echo "  --update-urls   Update the RPC URLs in the ORE scripts."
-        echo "  --sol-balance   Check the SOL balance for each address."
-        echo "  --rewards       Check the ORE rewards for each address."
-        echo "  --claim         Automate claiming ORE rewards for configured wallets."
-        echo "  --ore-balance   Check the ORE balance for each address."
-        echo "  --start-workers Start multiple screens for ORE mining sessions."
-        echo "  --pubkeys       Fetch the public keys for each address and export to addr_list.txt."
-        echo ""
-        echo "Options:"
+        echo "  --setup             Initialize and configure wallets and mining scripts."
+        echo "  --update-urls       Update the RPC URLs in the ORE scripts."
         echo "  -s, --sol-balance   Check the SOL balance for each address."
+        echo "  --rewards           Check the ORE rewards for each address."
+        echo "  --claim             Automate claiming ORE rewards for configured wallets."
         echo "  -o, --ore-balance   Check the ORE balance for each address."
-        echo "  -w, --start-workers Start multiple screens for ORE mining sessions."
+        echo "  -m, --start-miners  Start multiple screens for ORE mining sessions."
+        echo "  --pubkeys           Fetch the public keys for each address and export to addr_list.txt."
         echo ""
         echo "Example:"
-        echo "  $0 --setup       Initialize and configure wallets and mining scripts."
-        echo "  $0 --sol-balance Checks the SOL balance for addresses in addr_list.txt."
+        echo "  $0 --setup          Initialize and configure wallets and mining scripts."
+        echo "  $0 --sol-balance    Checks the SOL balance for addresses in addr_list.txt."
         ;;
     *)
         echo "Usage: $0 COMMAND"
-        echo "Try '$0 --help' for more information."
+        echo "Try '$0 --help' or '$0 -h' for more information."
         exit 1
         ;;
 esac

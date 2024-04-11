@@ -41,15 +41,9 @@ This script provides a set of commands to manage wallets and mining scripts for 
 - `--rewards`: Check the ORE rewards for each address.
 - `--claim`: Automate claiming ORE rewards for configured wallets.
 - `--ore-balance` or `-o`: Check the ORE balance for each address.
-- `--start-workers` or `-w`: Start multiple screens for ORE mining sessions.
+- `--start-miners` or `-m`: Start multiple screens for ORE mining sessions.
 - `--pubkeys`: Fetch the public keys for each address and export to `addr_list.txt`.
 - `--help`: Display usage information.
-
-### Options
-
-- `-s` or `--sol-balance`: Check the SOL balance for each address.
-- `-o` or `--ore-balance`: Check the ORE balance for each address.
-- `-w` or `--start-worker`: Start multiple screens for ORE mining sessions.
 
 ### Example
 
