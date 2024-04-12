@@ -9,8 +9,8 @@ if [ ! -f "$addr_list" ]; then
     exit 1
 fi
 
-echo "Address                                : Balance"
-echo "-------------------------------------- : -------"
+echo "Address                                      : Balance"
+echo "-------------------------------------------- : -------"
 
 # Read each address from the file and check the SOL balance
 while IFS= read -r addr; do

@@ -11,8 +11,8 @@ if [ ! -f "$addr_list" ]; then
     exit 1
 fi
 
-echo "Address                                : Rewards"
-echo "-------------------------------------- : -------"
+echo "Address                                      : Rewards"
+echo "-------------------------------------------- : -------"
 
 # Read each address from the file and accumulate the rewards
 while IFS= read -r addr; do
