@@ -18,12 +18,26 @@ rpc_url=${input_rpc_url:-$default_rpc_url}
 # Prompt for the address list file for funding
 echo "Enter the path to the address list file (default $default_addr_list):"
 read -r input_addr_list
-addr_list=${input_addr_list:-$default_addr_list}
+input_addr_list=${input_addr_list:-$default_addr_list}
+addr_list=$(eval echo $input_addr_list)
+
+# Validate address file path
+if [ ! -f "$addr_list" ]; then
+    echo "Address list file not found: $addr_list"
+    exit 1
+fi
 
 # Prompt for the funding account keypair
 echo "Enter the path to the funding account keypair (default $default_funding_account_keypair):"
 read -r input_funding_account_keypair
-funding_account_keypair=${input_funding_account_keypair:-$default_funding_account_keypair}
+input_funding_account_keypair=${input_funding_account_keypair:-$default_funding_account_keypair}
+funding_account_keypair=$(eval echo $input_funding_account_keypair)
+
+# Validate funding account keypair file
+if [ ! -f "$funding_account_keypair" ]; then
+    echo "Funding account keypair file not found: $funding_account_keypair"
+    exit 1
+fi
 
 # Prompt for the trigger balance
 echo "Enter the trigger balance (default $default_trigger_balance):"
@@ -39,17 +53,6 @@ maintain_balance=${input_maintain_balance:-$default_maintain_balance}
 echo "Enter the priority fee (default $default_priority_fee):"
 read -r input_priority_fee
 priority_fee=${input_priority_fee:-$default_priority_fee}
-
-
-# Validate file paths
-if [ ! -f "$addr_list" ]; then
-    echo "Address list file not found: $addr_list"
-    exit 1
-fi
-if [ ! -f "$funding_account_keypair" ]; then
-    echo "Funding account keypair file not found: $funding_account_keypair"
-    exit 1
-fi
 
 
 # Start funding process loop
@@ -69,6 +72,12 @@ while true; do
 
         if [[ "$balance" && "$(echo "$balance < $trigger_balance" | bc)" -eq 1 ]]; then
             amount_to_fund=$(echo "$maintain_balance - $balance" | bc)
+
+            # Skip zero or negative funding amounts
+            if [[ "$(echo "$amount_to_fund > 0" | bc)" -eq 0 ]]; then
+                continue
+            fi
+
             echo "Funding $addr with $amount_to_fund SOL..."
 
             if solana transfer --from "$funding_account_keypair" "$addr" "$amount_to_fund" \
