@@ -55,7 +55,7 @@ fi
 # Start funding process loop
 while true; do
     echo "Starting funding session..."
-    echo "------------------------------------------------"
+    echo "------------------------------------------------------"
     echo "Address                                      : Balance"
     echo "-------------------------------------------- : -------"
 
