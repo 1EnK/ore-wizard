@@ -17,7 +17,7 @@ case "$1" in
     --setup)
         execute_script "ore_setup.sh"
         ;;
-    --update-urls)
+    --update-urls|-u)
         execute_script "update_urls.sh"
         ;;
     --sol-balance|-s)
@@ -48,7 +48,7 @@ case "$1" in
         echo "Usage: $0 COMMAND"
         echo "Commands:"
         echo "  --setup             Initialize and configure wallets and mining scripts."
-        echo "  --update-urls       Update the RPC URLs in the ORE scripts."
+        echo "  -u, --update-urls   Update the RPC URLs in the ORE scripts."
         echo "  -s, --sol-balance   Check the SOL balance for each address."
         echo "  -f, --fund-sol      Fund each address with SOL to meet the minimum balance."
         echo "  --rewards           Check the ORE rewards for each address."
