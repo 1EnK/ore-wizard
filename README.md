@@ -88,8 +88,8 @@ This script provides a set of commands to manage wallets and mining scripts for 
 
 ### Example
 
-- `$0 --setup`: Initialize and configure wallets and mining scripts.
-- `$0 --sol-balance`: Checks the SOL balance for addresses in `addr_list.txt`.
+- `ore-wizard --setup`: Initialize and configure wallets and mining scripts.
+- `ore-wizard -s`: Checks the SOL balance for addresses in `addr_list.txt`.
 
 If an invalid command is provided, the script will display the usage information and exit with an error code.
 
