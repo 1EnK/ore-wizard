@@ -31,6 +31,11 @@ Ore-Wizard is a shell command tool designed to facilitate the management of sola
     export PATH=$PATH:/path/to/ore-wizard
     ```
 
+- Grant execute permissions to the script.
+    ```bash
+    chmod +x ore-wizard
+    ```
+
 ## Script Usage
 
 This script provides a set of commands to manage wallets and mining scripts for Ore (Open Rewards Ecosystem). It accepts a command as an argument and executes the corresponding action.
