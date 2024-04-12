@@ -53,14 +53,27 @@ This script provides a set of commands to manage wallets and mining scripts for 
 
 If an invalid command is provided, the script will display the usage information and exit with an error code.
 
-## Wallet Configuration
+## Account Configuration
 
-After the setup, run `ore-wizard --pubkeys` to generate an address list file as the index for the keypair addresses. The address list file will be generated as `addr_list.txt` in the current directory. The address list file will be used to check the SOL and ORE balances, and ORE rewards for each address.
+Run `ore-wizard --setup` to configure the keypairs and mining scripts. The script will prompt the user to enter the number of keypairs to generate and the number of mining scripts to create. The keypairs and mining scripts will be generated in the `/keypairs` and `/scripts` directories, respectively.
+
+An account index file `addr_list.txt` will be generated in the project root after the setup. If the index file is missing, run `ore-wizard --pubkeys` to generate an address list file as the index for the keypair addresses. The address list file will be used as an index to fund the miner addresses and check the balance and ore rewards.
+
+## Funding Miner Accounts
+
+Run `ore-wizard --fund-sol` or `-f` to fund the miner accounts with SOL to maintain the minimum balance. The script will prompt the user to enter the number of miner accounts to fund. The script will then fund the miner accounts with SOL from the configured funding account. Make sure the funding account has enough SOL to fund the miner accounts.
 
 ## Mining Configuration
 
-After the setup, run `ore-wizard --start-workers` to start multiple screens for ORE mining sessions. The script will automatically start the mining process for each script file in the `/scripts` directory in a separate screen session.
+After the setup, run `ore-wizard --start_miners` or `-m` to start multiple mining sessions in separate screens. The script will prompt the user to enter the number of mining sessions to start. The script will then start the mining sessions in separate screens. Default scripts path is `/scripts` and the default screen name is `ore-<index>`.
 MAKE SURE TO FUND THE ADDRESSES BEFORE STARTING THE MINING SESSIONS.
+
+Use `screen -ls` to list the active screen sessions and `screen -r ore-<index>` to attach to the screen session and monitor the mining process.
+To detach from the screen session, press `Ctrl + A` followed by `D`.
+
+## Reward Claiming
+
+Run `ore-wizard --claim` to automate the claiming of ORE rewards for the configured wallets. Set up the recipient address to claime the rewards to a specific address. Leave the recipient address empty to claim the rewards to the miner address. The claim sessions will be started in separate screens with a set sleep interval between each claim session.
 
 ## Debugging
 
