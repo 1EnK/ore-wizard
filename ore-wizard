@@ -39,7 +39,7 @@ case "$1" in
         execute_script "start_miners.sh"
         ;;
     --pubkeys)
-        execute_script "fetch_pubkey.sh"
+        execute_script "fetch_pubkeys.sh"
         ;;
     --version|-v)
         echo "Version 0.0.6"
