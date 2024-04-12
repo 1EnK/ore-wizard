@@ -1,6 +1,6 @@
-# ORE-Wizard
+# Ore-Wizard
 
-ORE-Wizard is a management tool designed to facilitate the management of solana keypairs and mining scripts for the ORE CLI (https://ore.supply/). It streamlines operations such as keypairs setup, RPC URL updates, balance checks, multi-session ore mining, and automated reward claiming.
+Ore-Wizard is a shell command tool designed to facilitate the management of solana keypairs and mining scripts for the Ore CLI (https://ore.supply/). It streamlines operations such as keypairs setup, RPC URL updates, balance checks, multi-session ore mining, and automated reward claiming.
 
 ## Prerequisites
 
@@ -15,10 +15,12 @@ ORE-Wizard is a management tool designed to facilitate the management of solana 
     sh -c "$(curl -sSfL https://release.solana.com/v1.18.4/install)"
     ```
 
-- ORE CLI
+- Ore CLI
     ```bash
     cargo install ore-cli
     ```
+
+    Or any other modified version of the Ore CLI using the same `ore-cli` command.
 
 ## Installation
 
@@ -31,18 +33,18 @@ ORE-Wizard is a management tool designed to facilitate the management of solana 
 
 ## Script Usage
 
-This script provides a set of commands to manage wallets and mining scripts for ORE (Open Rewards Ecosystem). It accepts a command as an argument and executes the corresponding action.
+This script provides a set of commands to manage wallets and mining scripts for Ore (Open Rewards Ecosystem). It accepts a command as an argument and executes the corresponding action.
 
 ### Commands
 
 - `--setup`: Initialize and configure wallets and mining scripts.
-- `--update-urls`: Update the RPC URLs in the ORE scripts.
+- `--update-urls`: Update the RPC URLs in the Ore scripts.
 - `--sol-balance` or `-s`: Check the SOL balance for each address.
 - `--fund-sol` or `-f`: Fund the SOL balance for each miner address to maintain the minimum balance.
-- `--rewards`: Check the ORE rewards for each address.
-- `--claim`: Automate claiming ORE rewards for configured wallets.
-- `--ore-balance` or `-o`: Check the ORE balance for each address.
-- `--start-miners` or `-m`: Start multiple screens for ORE mining sessions.
+- `--rewards`: Check the Ore rewards for each address.
+- `--claim`: Automate claiming Ore rewards for configured wallets.
+- `--ore-balance` or `-o`: Check the Ore balance for each address.
+- `--start-miners` or `-m`: Start multiple screens for Ore mining sessions.
 - `--pubkeys`: Fetch the public keys for each address and export to `addr_list.txt`.
 - `--help`: Display usage information.
 
@@ -73,11 +75,11 @@ To detach from the screen session, press `Ctrl + A` followed by `D`.
 
 ## Reward Claiming
 
-Run `ore-wizard --claim` to automate the claiming of ORE rewards for the configured wallets. Set up the recipient address to claime the rewards to a specific address. Leave the recipient address empty to claim the rewards to the miner address. The claim sessions will be started in separate screens with a set sleep interval between each claim session.
+Run `ore-wizard --claim` to automate the claiming of Ore rewards for the configured wallets. Set up the recipient address to claime the rewards to a specific address. Leave the recipient address empty to claim the rewards to the miner address. The claim sessions will be started in separate screens with a set sleep interval between each claim session.
 
 ## Debugging
 
 Account_Not_Found: 
-- Transfer a small amount of ORE to the problematic address, or
+- Transfer a small amount of Ore to the problematic address, or
 - Run `spl-token create-account oreoN2tQbHXVaZsr3pf66A48miqcBXCDJozganhEJgz` for the address and try again. 
   Set the correct keypair with `solana config set --keypair <path_to_keypair>` before running the above command.
