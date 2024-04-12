@@ -55,9 +55,9 @@ fi
 # Start funding process loop
 while true; do
     echo "Starting funding session..."
-    echo "---------------------------------------------"
-    echo "Address                                : Balance"
-    echo "-------------------------------------- : -------"
+    echo "------------------------------------------------"
+    echo "Address                                      : Balance"
+    echo "-------------------------------------------- : -------"
 
     while IFS= read -r addr; do
         if [[ -z "$addr" ]]; then
