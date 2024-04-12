@@ -23,6 +23,9 @@ case "$1" in
     --sol-balance|-s)
         execute_script "check_sol_balance.sh"
         ;;
+    --fund-sol|-f)
+        execute_script "fund_sol.sh"
+        ;;
     --rewards)
         execute_script "check_ore_rewards.sh"
         ;;
@@ -38,17 +41,22 @@ case "$1" in
     --pubkeys)
         execute_script "fetch_pubkey.sh"
         ;;
+    --version|-v)
+        echo "Version 0.0.6"
+        ;;
     --help|-h)
         echo "Usage: $0 COMMAND"
         echo "Commands:"
         echo "  --setup             Initialize and configure wallets and mining scripts."
         echo "  --update-urls       Update the RPC URLs in the ORE scripts."
         echo "  -s, --sol-balance   Check the SOL balance for each address."
+        echo "  -f, --fund-sol      Fund each address with SOL to meet the minimum balance."
         echo "  --rewards           Check the ORE rewards for each address."
         echo "  --claim             Automate claiming ORE rewards for configured wallets."
         echo "  -o, --ore-balance   Check the ORE balance for each address."
         echo "  -m, --start-miners  Start multiple screens for ORE mining sessions."
         echo "  --pubkeys           Fetch the public keys for each address and export to addr_list.txt."
+        echo "  -v, --version       Display the version of the script."
         echo ""
         echo "Example:"
         echo "  $0 --setup          Initialize and configure wallets and mining scripts."

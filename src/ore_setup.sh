@@ -7,6 +7,7 @@ default_rpc_url="https://api.mainnet-beta.solana.com"
 default_keypair_dir="$(dirname "$0")/../keypairs"
 default_script_dir="$(dirname "$0")/../scripts"
 default_threads=10
+fetch_pubkeys_script="$(dirname "$0")/fetch_pubkeys.sh"
 
 # Create the directories
 mkdir -p "$default_keypair_dir" "$default_script_dir"
@@ -82,3 +83,12 @@ done
 
 total_scripts=$((keypair_count * session_count))
 echo "$keypair_count keypairs and $total_scripts scripts created using RPC URL: $rpc_url, prefix: $id_prefix, priority fee: $priority_fee, and $threads threads per session."
+
+# Run the fetch_pubkeys script to extract the public keys
+if [ -f "$fetch_pubkeys_script" ]; then
+    echo "Running fetch public keys script..."
+    bash "$fetch_pubkeys_script"
+else
+    echo "Fetch public keys script not found: $fetch_pubkeys_script"
+    exit 1
+fi

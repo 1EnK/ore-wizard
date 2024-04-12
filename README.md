@@ -38,6 +38,7 @@ This script provides a set of commands to manage wallets and mining scripts for 
 - `--setup`: Initialize and configure wallets and mining scripts.
 - `--update-urls`: Update the RPC URLs in the ORE scripts.
 - `--sol-balance` or `-s`: Check the SOL balance for each address.
+- `--fund-sol` or `-f`: Fund the SOL balance for each miner address to maintain the minimum balance.
 - `--rewards`: Check the ORE rewards for each address.
 - `--claim`: Automate claiming ORE rewards for configured wallets.
 - `--ore-balance` or `-o`: Check the ORE balance for each address.
