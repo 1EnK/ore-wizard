@@ -28,12 +28,16 @@ Ore-Wizard is a shell command tool designed to facilitate the management of sola
 
 - Add the project directory to the PATH environment variable.
     ```bash
-    export PATH=$PATH:/path/to/ore-wizard
+    export PATH=$PATH:$HOME/ore-wizard
     ```
 
-- Grant execute permissions to the script.
+- Grant execute permissions to the scripts.
     ```bash
-    chmod +x ore-wizard
+    chmod +x $HOME/ore-wizard/ore-wizard
+    ```
+    
+    ```bash
+    chmod +x $HOME/ore-wizard/src/*.sh
     ```
 
 ## Script Usage
