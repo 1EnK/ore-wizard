@@ -1,6 +1,21 @@
 # Ore-Wizard
 
-Ore-Wizard is a shell command tool designed to facilitate the management of solana keypairs and mining scripts for the Ore CLI (https://ore.supply/). It streamlines operations such as keypairs setup, RPC URL updates, balance checks, multi-session ore mining, and automated reward claiming.
+Ore-Wizard is a shell command tool designed to facilitate the management of solana keypairs and mining scripts for the Ore CLI (https://ore.supply/). It streamlines operations to utilize the Ore CLI or any other modified versions using the same commands, without major conflicts to potential future updates or forks as long as the same commands are used. 
+
+## Features
+
+```
+- Initialize and configure keypairs and mining scripts for multiple mining screen sessions.
+- Update the RPC URLs in the Ore scripts.
+- Check the SOL balance for each address.
+- Fund the SOL balance for each miner address to maintain the minimum balance.
+- Check the Ore rewards for each address.
+- Automate claiming Ore rewards for configured wallets.
+- Check the Ore balance for each address.
+- Start multiple screens for Ore mining sessions.
+- Fetch the public keys for each address and export to `addr_list.txt`.
+- Collect the SOL balance for each address.
+```
 
 ## Prerequisites
 
