@@ -3,7 +3,7 @@
 # Initialize variables with default values
 default_rpc_url="https://api.mainnet-beta.solana.com"
 default_priority_fee=1000000
-default_recipient=""
+default_recipient=""  # Self-claiming if left empty
 default_trigger_level=0.01
 default_hourly_rate=0.001
 keypair_dir="$(dirname "$0")/../keypairs"
@@ -27,7 +27,7 @@ done
 # Prompt user for values if not set by command-line arguments
 rpc_url=${rpc_url:-$(read -p "Enter the RPC URL (default $default_rpc_url): " input_rpc_url; echo ${input_rpc_url:-$default_rpc_url})}
 priority_fee=${priority_fee:-$(read -p "Enter the priority fee (default $default_priority_fee): " input_priority_fee; echo ${input_priority_fee:-$default_priority_fee})}
-recipient=${recipient:-$(read -p "Enter the recipient address (default self-claim): " input_recipient; echo ${input_recipient:-$default_recipient})}
+recipient=${recipient:-$(read -p "Enter the recipient address (leave blank for self-claiming): " input_recipient; echo ${input_recipient:-$default_recipient})}
 trigger_level=${trigger_level:-$(read -p "Enter the trigger level for claiming (default $default_trigger_level): " input_trigger_level; echo ${input_trigger_level:-$default_trigger_level})}
 hourly_rate=${hourly_rate:-$(read -p "Enter the hourly rate (default $default_hourly_rate): " input_hourly_rate; echo ${input_hourly_rate:-$default_hourly_rate})}
 
@@ -47,7 +47,7 @@ fi
 index=0
 for keypair in "$keypair_dir"/*.json; do
     screen_name="claim-ore-$index"
-    echo "Starting claim process for $(basename "$keypair") in screen session '$screen_name'..."
+    echo "Starting claim process for '$(basename "$keypair")' in screen session '$screen_name'"
     screen -dmS "$screen_name" "$auto_claim_script" \
         --url "$rpc_url" \
         --keypair "$keypair" \
@@ -55,4 +55,7 @@ for keypair in "$keypair_dir"/*.json; do
         --recipient "$recipient" \
         --trigger-level "$trigger_level" \
         --hourly-rate "$hourly_rate"
-    if [ $? -ne 0 ]; then
+    index=$((index + 1))
+done
+
+echo "Batch claim processes started in separate screen sessions."
