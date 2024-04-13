@@ -55,11 +55,15 @@ An account index file `addr_list.txt` will be generated in the project root afte
 
 ## Funding Miner Accounts
 
-Run `ore-wizard --fund-sol` or `-f` to fund the miner accounts with SOL to maintain the minimum balance. The script will prompt the user to enter the number of miner accounts to fund. The script will then fund the miner accounts with SOL from the configured funding account. Make sure the funding account has enough SOL to fund the miner accounts.
+Run `ore-wizard --fund-sol` or `-f` to fund the miner accounts with SOL to maintain the minimum balance. 
+
+- `trigger_balance`: the minimum SOL balance to trigger the fund transfer.
+- `maintain_balance`: the SOL balance to maintain in the miner accounts. The script will transfer the difference between the maintain balance and the current balance to the miner accounts.
+- `funding_account_keypair`: the keypair to fund the miner accounts. The script will use the given keypair to fund the miner accounts. The keypair should have enough SOL balance to fund the miner accounts.
 
 ## Mining Configuration
 
-After the setup, run `ore-wizard --start_miners` or `-m` to start multiple mining sessions in separate screens. The script will prompt the user to enter the number of mining sessions to start. The script will then start the mining sessions in separate screens. Default scripts path is `/scripts` and the default screen name is `ore-<index>`.
+Run `ore-wizard --start_miners` or `-m` to start multiple mining sessions in separate screens. The script will prompt the user to enter the number of mining sessions to start. The script will then start the mining sessions in separate screens. Default scripts path is `/scripts` and the default screen name is `ore-<index>`.
 MAKE SURE TO FUND THE ADDRESSES BEFORE STARTING THE MINING SESSIONS.
 
 Use `screen -ls` to list the active screen sessions and `screen -r ore-<index>` to attach to the screen session and monitor the mining process.
