@@ -31,8 +31,8 @@ fi
 read -p "Enter the priority fee in lamports (press Enter for default $default_priority_fee): " priority_fee
 priority_fee=${priority_fee:-$default_priority_fee}
 
-read -p "Enter the fee payer keypair (press Enter to use sender as fee payer): " fee_payer
-fee_payer=${fee_payer:-$default_fee_payer}
+read -p "Enter the fee payer keypair (press Enter to use sender as fee payer): " input_fee_payer
+input_fee_payer=${input_fee_payer:-$default_fee_payer}
 
 # Check if the keypair directory exists
 if [ ! -d "$keypair_dir" ]; then
@@ -57,8 +57,14 @@ for keypair in "$keypair_dir"/*.json; do
     # Calculate the amount to transfer, subtracting the reserved gas
     transfer_amount=$(echo "$balance - $default_reserved_gas" | bc)
 
+    # Early exit if the transfer amount is zero or negative
+    if [[ $(echo "$transfer_amount <= 0" | bc) -eq 1 ]]; then
+        echo "No funds to transfer for $pubkey."
+        continue
+    fi
+
     # Set the fee payer to the keypair if not specified, if specified, use the provided address, if empty use keypair here
-    fee_payer=${fee_payer:-$keypair}
+    fee_payer=${input_fee_payer:-$keypair}
     fee_payer_pubkey=$(solana-keygen pubkey "$fee_payer")
     fee_payer_balance=$(solana balance "$fee_payer" --url "$rpc_url" | grep -oE '^[0-9]+(\.[0-9]+)?')
     echo "Fee payer: $fee_payer_pubkey : $fee_payer_balance SOL"
@@ -68,20 +74,15 @@ for keypair in "$keypair_dir"/*.json; do
         continue
     fi
 
-    # Ensure there is enough balance to cover the transfer and the reserved gas
-    if [[ $(echo "$transfer_amount > 0" | bc) -eq 1 ]]; then
-        # Transfer the calculated amount to the recipient address
-        echo "Attempting to transfer $transfer_amount SOL from $pubkey to $recipient_address..."
-        if solana transfer --from "$keypair" "$recipient_address" "$transfer_amount" \
-            --url "$rpc_url" --fee-payer "$keypair" \
-            --allow-unfunded-recipient --with-compute-unit-price "$priority_fee" -v; then
-            echo "Fund collected from $pubkey."
-        else
-            echo "Transaction failed for $pubkey. Continuing to next address..."
-            continue
-        fi
+    # Transfer the calculated amount to the recipient address
+    echo "Attempting to transfer $transfer_amount SOL from $pubkey to $recipient_address..."
+    if solana transfer --from "$keypair" "$recipient_address" "$transfer_amount" \
+        --url "$rpc_url" --fee-payer "$keypair" \
+        --allow-unfunded-recipient --with-compute-unit-price "$priority_fee" -v; then
+        echo "Fund collected from $pubkey."
     else
-        echo "Not enough balance to transfer from $pubkey. Skipping..."
+        echo "Transaction failed for $pubkey. Continuing to next address..."
+        continue
     fi
 done
 
