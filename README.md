@@ -46,10 +46,10 @@ Next, run `ore-wizard --setup` to initialize and configure keypairs and mining s
 
 Run `ore-wizard --setup` to configure the keypairs and mining scripts. The script will prompt the user to enter the number of keypairs to generate and the number of mining scripts to create. The keypairs and mining scripts will be generated in the `/keypairs` and `/scripts` directories, respectively.
 
-- rpc_urls:
-- id_prefix: the prefix for the miner keypair filenames to classify the miner accounts across different machines.
-- session_count: the number of mining screen scripts for each miner account to create. The script will create multiple mining scripts for each miner account to run multiple mining sessions in separate screens.
-- priority_fee: the priority fee to set for the mining transactions in lamports. The mining scripts will apply the given priority fee.
+- `rpc_urls`: Enter your RPC URLs here, default is `https://api.mainnet-beta.solana.com`.
+- `id_prefix`: the prefix for the miner keypair filenames to classify the miner accounts across different machines.
+- `session_count`: the number of mining screen scripts for each miner account to create. The script will create multiple mining scripts for each miner account to run multiple mining sessions in separate screens.
+- `priority_fee`: the priority fee to set for the mining transactions in lamports. The mining scripts will apply the given priority fee.
 
 An account index file `addr_list.txt` will be generated in the project root after the setup. If the index file is missing, run `ore-wizard --pubkeys` to generate an address list file as the index for the keypair addresses. The address list file will be used as an index to fund the miner addresses and check the balance and ore rewards.
 
@@ -84,6 +84,7 @@ This script provides a set of commands to manage wallets and mining scripts for 
 - `--ore-balance` or `-o`: Check the Ore balance for each address.
 - `--start-miners` or `-m`: Start multiple screens for Ore mining sessions.
 - `--pubkeys`: Fetch the public keys for each address and export to `addr_list.txt`.
+- `--collect-sol`: Collect the SOL balance for each address.
 - `--help`: Display usage information.
 
 ### Example

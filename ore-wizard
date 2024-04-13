@@ -41,6 +41,9 @@ case "$1" in
     --pubkeys)
         execute_script "fetch_pubkeys.sh"
         ;;
+    --collect-sol)
+        execute_script "collect_sol.sh"
+        ;;
     --version|-v)
         echo "Version 0.0.6"
         ;;
@@ -56,6 +59,7 @@ case "$1" in
         echo "  -o, --ore-balance   Check the ORE balance for each address."
         echo "  -m, --start-miners  Start multiple screens for ORE mining sessions."
         echo "  --pubkeys           Fetch the public keys for each address and export to addr_list.txt."
+        echo "  --collect-sol       Collect SOL from all addresses to a single address."
         echo "  -v, --version       Display the version of the script."
         echo ""
         echo "Example:"
