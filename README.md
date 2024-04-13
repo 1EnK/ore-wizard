@@ -119,3 +119,6 @@ Account_Not_Found:
 - Transfer a small amount of Ore to the problematic address, or
 - Run `spl-token create-account oreoN2tQbHXVaZsr3pf66A48miqcBXCDJozganhEJgz` for the address and try again. 
   Set the correct keypair with `solana config set --keypair <path_to_keypair>` before running the above command.
+
+addr_list.txt not found:
+- Run `ore-wizard --pubkeys` to generate the address list file.
