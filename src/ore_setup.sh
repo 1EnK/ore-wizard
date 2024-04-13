@@ -27,7 +27,7 @@ echo "Enter the number of keypairs to create:"
 read keypair_count
 
 # Validate that keypair_count is numeric and greater than zero
-if ! [[ "$keypair_count" =~ ^[0-9]+$ ]] || [ "$keypair_count" -le 0 ]; then
+if ! [[ "$keypair_count" =~ ^[0-9]+$ ]] || [ "$keypair_count" -lt 0 ]; then
     echo "Invalid number of keypairs. Please enter a positive integer."
     exit 1
 fi
