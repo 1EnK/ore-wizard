@@ -37,6 +37,17 @@ Ore-Wizard is a shell command tool designed to facilitate the management of sola
 
     Or any other modified version of the Ore CLI using the same `ore-cli` command.
 
+- Screen
+    ```bash
+    sudo apt-get install screen
+    ```
+
+- YQ
+    ```bash
+    sudo snap install yq
+    ```
+    For more installation options, refer to https://github.com/mikefarah/yq/#install
+
 ## Installation
 
 - Clone the repository and navigate to the project directory.
