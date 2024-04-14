@@ -1,0 +1,59 @@
+ore-wizard:
+  default_paths:
+    root: "$HOME/ore-wizard" 
+    keypair_dir: "$HOME/ore-wizard/keypairs" 
+    script_dir: "$HOME/ore-wizard/scripts" 
+    account_index_file: "$HOME/ore-wizard/addr_list.txt" 
+    primary_keypair: "$HOME/.config/solana/id.json"
+
+  rpc: 
+    default_url: "https://api.mainnet-beta.solana.com" # For regular use. e.g. checking balance, checking rewards, etc.
+    backup_urls: ["https://api.mainnet-beta.solana.com"] # Placeholder for rpc switch.
+    mining_url: "https://api.mainnet-beta.solana.com"
+    funding_url: "https://api.mainnet-beta.solana.com"
+    rewards_url: "https://api.mainnet-beta.solana.com"
+    collect_url: "https://api.mainnet-beta.solana.com"
+
+  naming_convention:
+    keypair_file_prefix: "id_"
+    mining_screen_prefix: "ore-"
+    claim_screen_prefix: "claim-ore-"
+    mining_script_prefix: "auto-ore-"
+
+  mining:
+    session_count: 1
+    priority_fee: 50000  # Default fee in lamports.
+    thread_count: 4
+    session_count: 1 # Number of mining screen sessions per keypair.
+
+  funding:
+    trigger_balance: 0.003 # SOL
+    maintain_balance: 0.01  # SOL
+    funding_account_keypair: "$HOME/.config/solana/id.json"
+    priority_fee: 50000  # Default fee in lamports.
+    sleep_duration: 14400  # Seconds
+
+  rewards_claiming:
+    trigger_level: 0.01  # Ore
+    hourly_rate: 0.001  # Ore/hour
+    recipient: ""  # Empty for self-claiming to the miner accounts.
+    priority_fee: 50000  # Default fee in lamports.
+
+  collect_sol:
+    reserved_gas: 0.0001  # SOL
+    fee_payer: ""  # Empty for self-paying.
+    priority_fee: 50000  # Default fee in lamports.
+    recipient: ""  # ADD YOUR ADDRESS HERE.
+
+  commands:
+    setup: ["--setup"]
+    update_urls: ["--update-urls", "-u"]
+    check_sol_balance: ["--sol-balance", "-s"]
+    fund_sol: ["--fund-sol", "-f"]
+    check_rewards: ["--rewards", "-r"]
+    claim_rewards: ["--claim", "-c"]
+    check_ore_balance: ["--ore-balance", "-o"]
+    start_miners: ["--start-miners", "-m"]
+    fetch_pubkeys: ["--pubkeys", "-p"]
+    collect_sol: ["--collect-sol", "-cs"]
+    help: ["--help", "-h"]

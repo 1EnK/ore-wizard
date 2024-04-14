@@ -105,13 +105,13 @@ This script provides a set of commands to manage wallets and mining scripts for 
 - `--update-urls` or `-u`: Update the RPC URLs in the Ore scripts.
 - `--sol-balance` or `-s`: Check the SOL balance for each address.
 - `--fund-sol` or `-f`: Fund the SOL balance for each miner address to maintain the minimum balance.
-- `--rewards`: Check the Ore rewards for each address.
-- `--claim`: Automate claiming Ore rewards for configured wallets.
+- `--rewards` or `-r`: Check the Ore rewards for each address.
+- `--claim` or `-c`: Automate claiming Ore rewards for configured wallets.
 - `--ore-balance` or `-o`: Check the Ore balance for each address.
 - `--start-miners` or `-m`: Start multiple screens for Ore mining sessions.
 - `--pubkeys`: Fetch the public keys for each address and export to `addr_list.txt`.
-- `--collect-sol`: Collect the SOL balance for each address.
-- `--help`: Display usage information.
+- `--collect-sol` or `-cs`: Collect the SOL balance for each address.
+- `--help` or `-h`: Display usage information.
 
 ### Example
 

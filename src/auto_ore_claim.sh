@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Include the utilities script from the same directory
+source "$(dirname "$0")/utils.sh"
+
+# Default configuration file path
+config_file="$(dirname "$0")/../.config.yaml"
+
 # Default values
 rpc_url="https://api.mainnet-beta.solana.com"
 keypair="$HOME/.config/solana/id.json"
@@ -7,6 +13,16 @@ priority_fee=1000000
 recipient=""  # Empty by default for self-claiming
 trigger_level=0.01 # Minimum reward balance to trigger a claim
 hourly_rate=0.001 # ORE per hour for sleep calculation
+
+# Load configurations from the config file to update the default values
+if [[ -f "$config_file" ]]; then
+  rpc_url=$(ore_wizard_get_config '.ore-wizard.rpc.rewards_url' "$rpc_url")
+  keypair=$(ore_wizard_get_config '.ore-wizard.default_paths.primary_keypair' "$keypair")
+  priority_fee=$(ore_wizard_get_config '.ore-wizard.rewards_claiming.priority_fee' "$priority_fee")
+  recipient=$(ore_wizard_get_config '.ore-wizard.rewards_claiming.recipient' "$recipient")
+  trigger_level=$(ore_wizard_get_config '.ore-wizard.rewards_claiming.trigger_level' "$trigger_level")
+  hourly_rate=$(ore_wizard_get_config '.ore-wizard.rewards_claiming.hourly_rate' "$hourly_rate")
+fi
 
 # Parse command-line arguments
 while [[ "$#" -gt 0 ]]; do
@@ -21,6 +37,25 @@ while [[ "$#" -gt 0 ]]; do
     esac
     shift
 done
+
+# Current system time in a readable format
+current_time=$(date "+%Y-%m-%d %H:%M:%S")
+
+# Print configurations with a header and timestamp
+echo "==========================================================="
+echo "Configuration for Auto ORE Claim"
+echo "==========================================================="
+echo "Claim Session Configuration:"
+echo "RPC URL        : $rpc_url"
+echo "Keypair        : $keypair"
+echo "Priority Fee   : $priority_fee (lamports)"
+echo "Recipient      : ${recipient:-'self (default)'}"  # Showing 'self (default)' if empty
+echo "Trigger Level  : $trigger_level ORE"
+echo "Hourly Rate    : $hourly_rate ORE/hour"
+echo "==========================================================="
+echo "Starting the auto-claim loop at $current_time..."
+echo "==========================================================="
+
 
 # Validate the recipient address if not empty
 if [[ -n "$recipient" ]]; then
