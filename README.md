@@ -1,21 +1,13 @@
 # Ore-Wizard
 
-Ore-Wizard is a shell command tool designed to facilitate the management of solana keypairs and mining scripts for the Ore CLI (https://ore.supply/). It streamlines operations to utilize the Ore CLI or any other modified versions using the same commands, without major conflicts to potential future updates or forks as long as the same commands are used. 
+Ore-Wizard is a bash command tool based on multiple screen sessions.
 
 ## Features
-
-```
-- Initialize and configure keypairs and mining scripts for multiple mining screen sessions.
-- Update the RPC URLs in the Ore scripts.
-- Check the SOL balance for each address.
-- Fund the SOL balance for each miner address to maintain the minimum balance.
-- Check the Ore rewards for each address.
-- Automate claiming Ore rewards for configured wallets.
-- Check the Ore balance for each address.
-- Start multiple screens for Ore mining sessions.
-- Fetch the public keys for each address and export to `addr_list.txt`.
-- Collect the SOL balance for each address.
-```
+- Multi-screen mining
+- Parallel mining sessions for single miner account
+- Periodic SOL balance checking and funding for multiple miner accounts
+- Periodic reward claiming for multiple miner accounts in the background
+- Check SOL balance, Ore rewards, and Ore balance for multiple miner accounts
 
 ## Prerequisites
 
@@ -52,7 +44,7 @@ Ore-Wizard is a shell command tool designed to facilitate the management of sola
 
 - Clone the repository and navigate to the project directory.
 
-- Add the project directory to the PATH environment variable.
+- Add the project directory to the PATH.
     ```bash
     export PATH=$PATH:$HOME/ore-wizard
     ```
@@ -60,55 +52,104 @@ Ore-Wizard is a shell command tool designed to facilitate the management of sola
 - Grant execute permissions to the scripts.
     ```bash
     chmod +x $HOME/ore-wizard/ore-wizard
-    ```
-
-    ```bash
     chmod +x $HOME/ore-wizard/src/*.sh
     ```
-Then you can run the script using the `ore-wizard` command. Start by running `ore-wizard --help` to display the usage information. 
-Next, run `ore-wizard --setup` to initialize and configure keypairs and mining scripts. See the Account Configuration section for more details.
 
-## Account Configuration
+## Setup Account and Mining Configuration
 
-Run `ore-wizard --setup` to configure the keypairs and mining scripts. The script will prompt the user to enter the number of keypairs to generate and the number of mining scripts to create. The keypairs and mining scripts will be generated in the `/keypairs` and `/scripts` directories, respectively.
+- Run the setup command to create the keypairs and corresponding mining scripts.
+    ```bash
+    ore-wizard --setup
+    ```
+    Default keypairs path: `ore-wizard/keypairs`
+    Default scripts path: `ore-wizard/scripts`
 
-- `rpc_urls`: Enter your RPC URLs here, default is `https://api.mainnet-beta.solana.com`.
+
+- `rpc_urls`: enter your RPC URLs here, default is `https://api.mainnet-beta.solana.com`.
 - `id_prefix`: the prefix for the miner keypair filenames to classify the miner accounts across different machines.
-- `session_count`: the number of mining screen scripts for each miner account to create. The script will create multiple mining scripts for each miner account to run multiple mining sessions in separate screens.
-- `priority_fee`: the priority fee to set for the mining transactions in lamports. The mining scripts will apply the given priority fee.
+- `session_count`: parallel mining sessions for each miner account, set to 1 for single mining session.
+- `priority_fee`: the priority fee to set for the mining transactions in lamports.
+- `addr_list.txt`: the index file for the keypair addresses. Use `ore-wizard --pubkeys` to generate the address list file if it is missing.
 
-An account index file `addr_list.txt` will be generated in the project root after the setup. If the index file is missing, run `ore-wizard --pubkeys` to generate an address list file as the index for the keypair addresses. The address list file will be used as an index to fund the miner addresses and check the balance and ore rewards.
+## Fund Miner Accounts
 
-## Funding Miner Accounts
-
-Run `ore-wizard --fund-sol` or `-f` to fund the miner accounts with SOL to maintain the minimum balance. 
+- Fund the miner accounts with SOL to maintain the minimum balance. 
+    ```bash
+    ore-wizard --fund-sol
+    ```
+    or
+    ```bash
+    ore-wizard -f
+    ```
 
 - `trigger_balance`: the minimum SOL balance to trigger the fund transfer.
-- `maintain_balance`: the SOL balance to maintain in the miner accounts. The script will transfer the difference between the maintain balance and the current balance to the miner accounts.
-- `funding_account_keypair`: the keypair to fund the miner accounts. The script will use the given keypair to fund the miner accounts. The keypair should have enough SOL balance to fund the miner accounts.
+- `maintain_balance`: the SOL balance to maintain for each miner account.
+- `funding_account_keypair`: the keypair to fund the miner accounts. Ensure the funding account has sufficient SOL balance for distribution.
 
-## Mining Configuration
+- Display the SOL balance for each address.
+    ```bash
+    ore-wizard --sol-balance
+    ```
+    or
+    ```bash
+    ore-wizard -s
+    ```
 
-Run `ore-wizard --start_miners` or `-m` to start multiple mining sessions in separate screens. The script will prompt the user to enter the number of mining sessions to start. The script will then start the mining sessions in separate screens. Default scripts path is `/scripts` and the default screen name is `ore-<index>`.
-MAKE SURE TO FUND THE ADDRESSES BEFORE STARTING THE MINING SESSIONS.
+## Start Mining Sessions
 
-Use `screen -ls` to list the active screen sessions and `screen -r ore-<index>` to attach to the screen session and monitor the mining process.
-To detach from the screen session, press `Ctrl + A` followed by `D`.
+- Start the mining sessions for the configured miner accounts.
+    ```bash
+    ore-wizard --start-miners
+    ```
+    or
+    ```bash
+    ore-wizard -m
+    ```
+The limit of mining sessions is determined by the number of mining scripts in `/scripts` directory.
+MAKE SURE THE MINER ACCOUNTS ARE FUNDED BEFORE STARTING THE MINING SESSIONS. 
 
-## Reward Claiming
+- List all active screen sessions.
+    ```bash
+    screen -ls
+    ```
+- Attach to the screen session to monitor the mining process. Default screen name is `ore-<index>`.
+    ```bash
+    screen -r <session_name>
+    
+    ```
+- Detach from the screen session.
+    ```bash
+    Ctrl + A + D
+    ```
 
-Run `ore-wizard --claim` to automate the reward claiming process for the configured wallets in separated screens. The script will claim the Ore rewards for the configured wallets when the Ore balance exceeds the trigger level. The script will sleep for the calculated time after each reward claim session. Default screen name is `claim-ore-<index>`.
+## Claim Ore Rewards
+
+- Initialize the reward claiming sessions for each miner account in `/keypairs` directory.
+    ```bash
+    ore-wizard --claim
+    ```
+    or
+    ```bash
+    ore-wizard -c
+    ```
 
 - `priority_fee`: the priority fee to set for the reward claim transactions in lamports.
 - `recipient`: the address to receive the claimed Ore rewards. Leave empty to claim the rewards to the miner addresses.
-- `trigger_level`: the Ore balance to trigger the reward claim. The script will claim the rewards if the Ore balance is greater than the trigger level.
-- `hourly_rate`: the estimtad hourly rewards for calculating the reward claim frequency. it determines the time to reach the trigger level, and the script will sleep for the calculated time after each reward claim session. e.g., 0.1 Ore/hour. and trigger level is 1 Ore, the script will claim the rewards every 10 hours. 
-- `keypair_dir`: the directory to store the keypair for the recipient address. 
-- `auto-claim-script`: script to claim rewards for single address. Multiple screen sessions of this script will be created for each address in the keypair directory.
+- `trigger_level`: the Ore balance to trigger the reward claim. 
+- `hourly_rate`: the estimtad hourly rewards for calculating the reward claim frequency. e.g. 0.1 Ore/hour for a trigger level of 0.5 Ore will claim every 5 hours.
+- `keypair_dir`: the directory containing the miner keypairs for reward claiming.
+- `auto-claim-script`: script to claim rewards for single address. 
 
 ## Script Usage
 
-This script provides a set of commands to manage wallets and mining scripts for Ore (Open Rewards Ecosystem). It accepts a command as an argument and executes the corresponding action.
+- Display the help information for commands.
+    ```bash
+    ore-wizard --help
+    ```
+    or
+    ```bash
+    ore-wizard -h
+    ```
 
 ### Commands
 
@@ -129,7 +170,82 @@ This script provides a set of commands to manage wallets and mining scripts for 
 - `ore-wizard --setup`: Initialize and configure wallets and mining scripts.
 - `ore-wizard -s`: Checks the SOL balance for addresses in `addr_list.txt`.
 
-If an invalid command is provided, the script will display the usage information and exit with an error code.
+## Configuration
+
+- Modify the configuration file for default paths and settings. Install `yq` to make it functional.
+    ```bash
+    nano <root directory for ore-wizard>/.config.yaml
+    ```
+    or 
+    ```bash
+    cd <root directory for ore-wizard>
+    nano .config.yaml
+    ```
+
+- Default configuration file:
+    ```yaml
+    ore-wizard:
+    default_paths:
+        root: "$HOME/ore-wizard" 
+        keypair_dir: "$HOME/ore-wizard/keypairs" 
+        script_dir: "$HOME/ore-wizard/scripts" 
+        account_index_file: "$HOME/ore-wizard/addr_list.txt" 
+        primary_keypair: "$HOME/.config/solana/id.json"
+
+    rpc: 
+        default_url: "https://api.mainnet-beta.solana.com" # For regular use. e.g. checking balance, checking rewards, etc.
+        backup_urls: ["https://api.mainnet-beta.solana.com"] # Placeholder for rpc switch.
+        mining_url: "https://api.mainnet-beta.solana.com"
+        funding_url: "https://api.mainnet-beta.solana.com"
+        rewards_url: "https://api.mainnet-beta.solana.com"
+        collect_url: "https://api.mainnet-beta.solana.com"
+
+    naming_convention:
+        keypair_file_prefix: "id_"
+        mining_screen_prefix: "ore-"
+        claim_screen_prefix: "claim-ore-"
+        mining_script_prefix: "auto-ore-"
+
+    mining:
+        session_count: 1
+        priority_fee: 50000  # Default fee in lamports.
+        thread_count: 4
+        session_count: 1 # Number of mining screen sessions per keypair.
+
+    funding:
+        trigger_balance: 0.003 # SOL
+        maintain_balance: 0.01  # SOL
+        funding_account_keypair: "$HOME/.config/solana/id.json"
+        priority_fee: 50000  # Default fee in lamports.
+        sleep_duration: 14400  # Seconds
+
+    rewards_claiming:
+        trigger_level: 0.01  # Ore
+        hourly_rate: 0.001  # Ore/hour
+        recipient: ""  # Empty for self-claiming to the miner accounts.
+        priority_fee: 50000  # Default fee in lamports.
+
+    collect_sol:
+        reserved_gas: 0.0001  # SOL
+        fee_payer: ""  # Empty for self-paying.
+        priority_fee: 50000  # Default fee in lamports.
+        recipient: ""  # ADD YOUR ADDRESS HERE.
+
+    commands:
+        setup: ["--setup"]
+        update_urls: ["--update-urls", "-u"]
+        check_sol_balance: ["--sol-balance", "-s"]
+        fund_sol: ["--fund-sol", "-f"]
+        check_rewards: ["--rewards", "-r"]
+        claim_rewards: ["--claim", "-c"]
+        check_ore_balance: ["--ore-balance", "-o"]
+        start_miners: ["--start-miners", "-m"]
+        fetch_pubkeys: ["--pubkeys", "-p"]
+        collect_sol: ["--collect-sol", "-cs"]
+        help: ["--help", "-h"]
+
+    version: "0.6.5"
+    ```
 
 ## Debugging
 
