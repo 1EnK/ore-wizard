@@ -88,12 +88,12 @@ To detach from the screen session, press `Ctrl + A` followed by `D`.
 
 Run `ore-wizard --claim` to automate the reward claiming process for the configured wallets in separated screens. The script will claim the Ore rewards for the configured wallets when the Ore balance exceeds the trigger level. The script will sleep for the calculated time after each reward claim session. Default screen name is `claim-ore-<index>`.
 
-`priority_fee`: the priority fee to set for the reward claim transactions in lamports.
-`recipient`: the address to receive the claimed Ore rewards. Leave empty to claim the rewards to the miner addresses.
-`trigger_level`: the Ore balance to trigger the reward claim. The script will claim the rewards if the Ore balance is greater than the trigger level.
-`hourly_rate`: the estimtad hourly rewards for calculating the reward claim frequency. it determines the time to reach the trigger level, and the script will sleep for the calculated time after each reward claim session. e.g., 0.1 Ore/hour. and trigger level is 1 Ore, the script will claim the rewards every 10 hours. 
-`keypair_dir`: the directory to store the keypair for the recipient address. 
-`auto-claim-script`: script to claim rewards for single address. Multiple screen sessions of this script will be created for each address in the keypair directory.
+- `priority_fee`: the priority fee to set for the reward claim transactions in lamports.
+- `recipient`: the address to receive the claimed Ore rewards. Leave empty to claim the rewards to the miner addresses.
+- `trigger_level`: the Ore balance to trigger the reward claim. The script will claim the rewards if the Ore balance is greater than the trigger level.
+- `hourly_rate`: the estimtad hourly rewards for calculating the reward claim frequency. it determines the time to reach the trigger level, and the script will sleep for the calculated time after each reward claim session. e.g., 0.1 Ore/hour. and trigger level is 1 Ore, the script will claim the rewards every 10 hours. 
+- `keypair_dir`: the directory to store the keypair for the recipient address. 
+- `auto-claim-script`: script to claim rewards for single address. Multiple screen sessions of this script will be created for each address in the keypair directory.
 
 ## Script Usage
 
