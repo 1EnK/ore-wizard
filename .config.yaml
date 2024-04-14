@@ -57,3 +57,5 @@ ore-wizard:
     fetch_pubkeys: ["--pubkeys", "-p"]
     collect_sol: ["--collect-sol", "-cs"]
     help: ["--help", "-h"]
+
+  version: "0.6.5"

@@ -3,6 +3,10 @@
 # Default relative path to the scripts directory
 SCRIPT_DIR="$(dirname "$0")/src"
 
+# Default version of the project
+version="0.6.5"
+
+# Function to execute a script from the src directory
 execute_script() {
     script_path="$SCRIPT_DIR/$1"
     if [ -f "$script_path" ] && [ -x "$script_path" ]; then
@@ -45,7 +49,7 @@ case "$1" in
         execute_script "collect_sol.sh"
         ;;
     --version|-v)
-        echo "Version 0.0.6"
+        echo "Ore-Wizard v$version"
         ;;
     --help|-h)
         echo "Usage: $0 COMMAND"
