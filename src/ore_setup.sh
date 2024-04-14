@@ -54,6 +54,12 @@ if [[ "$skip_prompt" = false ]]; then
     read rpc_url
     rpc_url=${rpc_url:-$default_rpc_url}
 
+    # Validate the URL format
+    if [[ ! $rpc_url =~ ^(https://|wss://) ]]; then
+        echo "Invalid URL format. Please enter a URL starting with 'https://' or 'wss://'."
+        exit 1
+    fi
+
     # Set the prefix of keypair files
     echo "Enter the prefix for keypair files (default is $default_id_prefix):"
     read id_prefix

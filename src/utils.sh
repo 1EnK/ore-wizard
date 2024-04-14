@@ -6,6 +6,6 @@ ore_wizard_get_config() {
   if [[ "$value" == "null" || -z "$value" ]]; then
     echo "$default_value"
   else
-    echo "$value"
+    eval echo "$value"
   fi
 }

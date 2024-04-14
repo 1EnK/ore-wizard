@@ -18,7 +18,7 @@ default_screen_prefix="claim-ore-"
 
 # Load configurations from the config file to update the default values
 if [[ -f "$config_file" ]]; then
-  default_rpc_url=$(ore_wizard_get_config '.ore-wizard.rpc.default_url' "$default_rpc_url")
+  default_rpc_url=$(ore_wizard_get_config '.ore-wizard.rpc.rewards_url' "$default_rpc_url")
   default_priority_fee=$(ore_wizard_get_config '.ore-wizard.rewards_claiming.priority_fee' "$default_priority_fee")
   default_recipient=$(ore_wizard_get_config '.ore-wizard.rewards_claiming.recipient' "$default_recipient")
   default_trigger_level=$(ore_wizard_get_config '.ore-wizard.rewards_claiming.trigger_level' "$default_trigger_level")
@@ -45,7 +45,7 @@ done
 # Prompt user for values if not set by command-line arguments
 rpc_url=${rpc_url:-$(read -p "Enter the RPC URL (default $default_rpc_url): " input_rpc_url; echo ${input_rpc_url:-$default_rpc_url})}
 priority_fee=${priority_fee:-$(read -p "Enter the priority fee (default $default_priority_fee): " input_priority_fee; echo ${input_priority_fee:-$default_priority_fee})}
-recipient=${recipient:-$(read -p "Enter the recipient address (leave blank for self-claiming): " input_recipient; echo ${input_recipient:-$default_recipient})}
+recipient=${recipient:-$(read -p "Enter the recipient address, leave blank for self-claiming (default: $default_recipient): " input_recipient; echo ${input_recipient:-$default_recipient})}
 trigger_level=${trigger_level:-$(read -p "Enter the trigger level for claiming (default $default_trigger_level): " input_trigger_level; echo ${input_trigger_level:-$default_trigger_level})}
 hourly_rate=${hourly_rate:-$(read -p "Enter the hourly rate (default $default_hourly_rate): " input_hourly_rate; echo ${input_hourly_rate:-$default_hourly_rate})}
 

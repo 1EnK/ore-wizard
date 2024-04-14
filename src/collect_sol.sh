@@ -48,7 +48,8 @@ if [[ "$skip_prompt" = false ]]; then
     read -p "Enter the RPC URL (press Enter for default $default_rpc_url): " rpc_url
     rpc_url=${rpc_url:-$default_rpc_url}
 
-    read -p "Enter the recipient's Solana address: " recipient_address
+    read -p "Enter the recipient's Solana address (Default: $default_recipient): " recipient_address
+    recipient_address=${recipient_address:-$default_recipient}
     if [[ -z "$recipient_address" ]]; then
         echo "Recipient address is required."
         exit 1
@@ -57,7 +58,7 @@ if [[ "$skip_prompt" = false ]]; then
     read -p "Enter the priority fee in lamports (press Enter for default $default_priority_fee): " priority_fee
     priority_fee=${priority_fee:-$default_priority_fee}
 
-    read -p "Enter the fee payer keypair (press Enter to use sender as fee payer): " input_fee_payer
+    read -p "Enter the fee payer keypair, leave empty to use default or sender as fee payer (Default: $default_fee_payer): " input_fee_payer
     input_fee_payer=${input_fee_payer:-$default_fee_payer}
 
     # Check if the keypair directory exists

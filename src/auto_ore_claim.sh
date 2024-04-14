@@ -45,7 +45,6 @@ current_time=$(date "+%Y-%m-%d %H:%M:%S")
 echo "==========================================================="
 echo "Configuration for Auto ORE Claim"
 echo "==========================================================="
-echo "Claim Session Configuration:"
 echo "RPC URL        : $rpc_url"
 echo "Keypair        : $keypair"
 echo "Priority Fee   : $priority_fee (lamports)"

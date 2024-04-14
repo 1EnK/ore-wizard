@@ -29,7 +29,7 @@ while [[ "$#" -gt 0 ]]; do
     shift
 done
 
-echo "Current script directory: $default_script_dir"
+eval echo "Current script directory: $default_script_dir"
 
 # Prompt if miner count is not provided or zero
 if [[ -z "$miner_count" || "$miner_count" -eq 0 ]]; then
