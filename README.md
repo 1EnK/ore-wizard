@@ -23,13 +23,12 @@ Ore-Wizard is a bash command tool based on multiple screen sessions.
     ```
 
 - Ore CLI or Ore CLI forks
-   - Official Ore CLI
+    - Official Ore CLI:
     ```bash
     cargo install ore-cli
     ```
 
-    - Forked
-    Ore CLI Gpu:
+    -  Ore CLI GPU:
     ```bash
     https://github.com/BenjaSOL/ore-cli-gpu
     ```
