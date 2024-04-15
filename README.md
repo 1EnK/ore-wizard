@@ -22,9 +22,14 @@ Ore-Wizard is a bash command tool based on multiple screen sessions.
     sh -c "$(curl -sSfL https://release.solana.com/v1.18.4/install)"
     ```
 
-- Ore CLI
+- Ore CLI or Ore CLI forks
+    Official Ore CLI:
     ```bash
     cargo install ore-cli
+    ```
+    Ore CLI Gpu:
+    ```bash
+    https://github.com/BenjaSOL/ore-cli-gpu
     ```
 
     Or any other modified version of the Ore CLI using the same `ore-cli` command.
@@ -53,6 +58,40 @@ Ore-Wizard is a bash command tool based on multiple screen sessions.
     ```bash
     chmod +x $HOME/ore-wizard/ore-wizard
     chmod +x $HOME/ore-wizard/src/*.sh
+    ```
+
+    Add path to the `.bashrc` or `.bash_profile` to make it permanent (optional).
+    ```bash
+    nano $HOME/.bashrc
+    ```
+    Add the following line at the end of the file and save
+    ```bash
+    export PATH=$PATH:$HOME/ore-wizard
+    ```
+    Reload the bashrc file.
+    ```bash
+    source $HOME/.bashrc
+    ```
+    or use the following command to append the path to the `.bashrc` file, then reload the file as above.
+    ```bash
+    echo 'export PATH=$PATH:$HOME/ore-wizard' >> $HOME/.bashrc
+    ```
+
+- For GPU mining, after installing the forked Ore CLI, add `<path_to_forked_ore_cli>/target/release` to the PATH.
+    ```bash
+    nano $HOME/.bashrc
+    ```
+    Add the following line at the end of the file and save
+    ```bash
+    export PATH=$PATH:<path_to_forked_ore_cli>/target/release
+    ```
+    or
+    ```bash
+    echo 'export PATH=$PATH:<path_to_forked_ore_cli>/target/release' >> $HOME/.bashrc
+    ```
+    Reload the bashrc file.
+    ```bash
+    source $HOME/.bashrc
     ```
 
 ## Setup Account and Mining Configuration
