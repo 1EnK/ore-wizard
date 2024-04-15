@@ -30,7 +30,7 @@ ore-wizard:
     trigger_balance: 0.003 # SOL
     maintain_balance: 0.01  # SOL
     funding_account_keypair: "$HOME/.config/solana/id.json"
-    priority_fee: 50000  # Default fee in lamports.
+    priority_fee: 1  # Default fee in lamports.
     sleep_duration: 14400  # Seconds
 
   rewards_claiming:
@@ -42,7 +42,7 @@ ore-wizard:
   collect_sol:
     reserved_gas: 0.001  # SOL
     fee_payer: ""  # Empty for self-paying.
-    priority_fee: 50000  # Default fee in lamports.
+    priority_fee: 1  # Default fee in lamports.
     recipient: ""  # ADD YOUR ADDRESS HERE.
 
   commands:

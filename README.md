@@ -64,14 +64,17 @@ Ore-Wizard is a bash command tool based on multiple screen sessions.
     ```bash
     nano $HOME/.bashrc
     ```
+
     Add the following line at the end of the file and save
     ```bash
     export PATH=$PATH:$HOME/ore-wizard
     ```
+
     Reload the bashrc file.
     ```bash
     source $HOME/.bashrc
     ```
+
     or use the following command to append the path to the `.bashrc` file, then reload the file as above.
     ```bash
     echo 'export PATH=$PATH:$HOME/ore-wizard' >> $HOME/.bashrc
@@ -81,6 +84,7 @@ Ore-Wizard is a bash command tool based on multiple screen sessions.
     ```bash
     nano $HOME/.bashrc
     ```
+
     Add the following line at the end of the file and save
     ```bash
     export PATH=$PATH:<path_to_forked_ore_cli>/target/release
@@ -89,6 +93,7 @@ Ore-Wizard is a bash command tool based on multiple screen sessions.
     ```bash
     echo 'export PATH=$PATH:<path_to_forked_ore_cli>/target/release' >> $HOME/.bashrc
     ```
+    
     Reload the bashrc file.
     ```bash
     source $HOME/.bashrc
@@ -255,7 +260,7 @@ MAKE SURE THE MINER ACCOUNTS ARE FUNDED BEFORE STARTING THE MINING SESSIONS.
         trigger_balance: 0.003 # SOL
         maintain_balance: 0.01  # SOL
         funding_account_keypair: "$HOME/.config/solana/id.json"
-        priority_fee: 50000  # Default fee in lamports.
+        priority_fee: 1  # Default fee in lamports.
         sleep_duration: 14400  # Seconds
 
     rewards_claiming:
@@ -267,7 +272,7 @@ MAKE SURE THE MINER ACCOUNTS ARE FUNDED BEFORE STARTING THE MINING SESSIONS.
     collect_sol:
         reserved_gas: 0.001  # SOL
         fee_payer: ""  # Empty for self-paying.
-        priority_fee: 50000  # Default fee in lamports.
+        priority_fee: 1  # Default fee in lamports.
         recipient: ""  # ADD YOUR ADDRESS HERE.
 
     commands:
