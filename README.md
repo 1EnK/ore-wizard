@@ -265,7 +265,7 @@ MAKE SURE THE MINER ACCOUNTS ARE FUNDED BEFORE STARTING THE MINING SESSIONS.
         priority_fee: 50000  # Default fee in lamports.
 
     collect_sol:
-        reserved_gas: 0.0001  # SOL
+        reserved_gas: 0.001  # SOL
         fee_payer: ""  # Empty for self-paying.
         priority_fee: 50000  # Default fee in lamports.
         recipient: ""  # ADD YOUR ADDRESS HERE.
