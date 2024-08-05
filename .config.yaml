@@ -21,23 +21,22 @@ ore-wizard:
     mining_script_prefix: "auto-ore-"
 
   mining:
-    session_count: 1
-    priority_fee: 50000  # Default fee in lamports.
-    thread_count: 4
     session_count: 1 # Number of mining screen sessions per keypair.
+    priority_fee: 5000  # Default fee in lamports.
+    thread_count: 4
 
   funding:
     trigger_balance: 0.003 # SOL
-    maintain_balance: 0.01  # SOL
+    maintain_balance: 0.01  # SOL, minimum required for ore is 0.005 SOL.
     funding_account_keypair: "$HOME/.config/solana/id.json"
     priority_fee: 1  # Default fee in lamports.
     sleep_duration: 14400  # Seconds
 
   rewards_claiming:
-    trigger_level: 0.01  # Ore
-    hourly_rate: 0.001  # Ore/hour
+    trigger_level: 0.1  # Ore
+    hourly_rate: 0.001  # ORE/hour for sleep calculation, adjust based on actual rewards rate
     recipient: ""  # Empty for self-claiming to the miner accounts.
-    priority_fee: 50000  # Default fee in lamports.
+    priority_fee: 5000  # Default fee in lamports.
 
   collect_sol:
     reserved_gas: 0.001  # SOL
@@ -57,5 +56,8 @@ ore-wizard:
     fetch_pubkeys: ["--pubkeys", "-p"]
     collect_sol: ["--collect-sol", "-cs"]
     help: ["--help", "-h"]
+    # V2 Commands
+    upgrade: ["--upgrade"]
+    stake: ["--stake"]
 
-  version: "0.6.5"
+  version: "2.0.0 (beta)"

@@ -4,7 +4,7 @@
 SCRIPT_DIR="$(dirname "$0")/src"
 
 # Default version of the project
-version="0.6.5"
+version="2.0.0 (beta)"
 
 # Function to execute a script from the src directory
 execute_script() {
@@ -32,6 +32,10 @@ print_help_message() {
     echo "  -m, --start-miners  Start multiple screens for ORE mining sessions."
     echo "  --pubkeys           Fetch the public keys for each address and export to addr_list.txt."
     echo "  -cs, --collect-sol  Collect SOL from all addresses to a single address."
+    # V2 Commands, beta features, please use with caution
+    echo "  --upgrade           Upgrade the ORE token to V2 in batches."
+    echo "  --stake             Stake ORE tokens in batches."
+    # Informational commands
     echo "  -v, --version       Display the version of the script."
     echo ""
     echo "Example:"
@@ -70,6 +74,14 @@ case "$1" in
     --collect-sol|-cs)
         execute_script "collect_sol.sh" "${@:2}"
         ;;
+    # V2 Commands, beta features, please use with caution
+    --upgrade)
+        execute_script "v2_upgrade.sh" "${@:2}"
+        ;;
+    --stake)
+        execute_script "v2_stake.sh" "${@:2}"
+        ;;
+    # Informational commands
     --version|-v)
         echo "Ore-Wizard v$version"
         ;;

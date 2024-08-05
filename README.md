@@ -10,6 +10,14 @@ Ore-Wizard is a bash command tool based on multiple screen sessions.
 - Check SOL balance, Ore rewards, and Ore balance for multiple miner accounts
 
 ## Prerequisites
+Run `setup_ore_env.sh` in the project root directory to install the required packages.
+
+```bash
+chmod +x setup_ore_env.sh
+./setup_ore_env.sh
+```
+
+Alternatively, you can install the required packages manually as follows:
 
 - Rust
     ```bash
@@ -28,10 +36,6 @@ Ore-Wizard is a bash command tool based on multiple screen sessions.
     cargo install ore-cli
     ```
 
-    -  Ore CLI GPU:
-    ```bash
-    https://github.com/BenjaSOL/ore-cli-gpu
-    ```
     Or any other modified version of the Ore CLI using the same `ore-cli` command.
 
 - Screen
@@ -206,6 +210,8 @@ MAKE SURE THE MINER ACCOUNTS ARE FUNDED BEFORE STARTING THE MINING SESSIONS.
 - `--ore-balance` or `-o`: Check the Ore balance for each address.
 - `--start-miners` or `-m`: Start multiple screens for Ore mining sessions.
 - `--pubkeys`: Fetch the public keys for each address and export to `addr_list.txt`.
+- `--upgrade`: Upgrade ORE token from V1 to V2 in batch.
+- `--stakes`: Stake the ORE token in batch.
 - `--collect-sol` or `-cs`: Collect the SOL balance for each address.
 - `--help` or `-h`: Display usage information.
 
@@ -227,6 +233,8 @@ MAKE SURE THE MINER ACCOUNTS ARE FUNDED BEFORE STARTING THE MINING SESSIONS.
     ```
 
 - Default configuration file:
+    The initial priority fee is set to a large value for V1 mining, you may update the priority fee to a lower value for V2 mining if required.
+
     ```yaml
     ore-wizard:
     default_paths:
@@ -252,7 +260,7 @@ MAKE SURE THE MINER ACCOUNTS ARE FUNDED BEFORE STARTING THE MINING SESSIONS.
 
     mining:
         session_count: 1
-        priority_fee: 50000  # Default fee in lamports.
+        priority_fee: 5000  # Default fee in lamports. 
         thread_count: 4
         session_count: 1 # Number of mining screen sessions per keypair.
 
@@ -267,7 +275,7 @@ MAKE SURE THE MINER ACCOUNTS ARE FUNDED BEFORE STARTING THE MINING SESSIONS.
         trigger_level: 0.01  # Ore
         hourly_rate: 0.001  # Ore/hour
         recipient: ""  # Empty for self-claiming to the miner accounts.
-        priority_fee: 50000  # Default fee in lamports.
+        priority_fee: 5000  # Default fee in lamports.
 
     collect_sol:
         reserved_gas: 0.001  # SOL
@@ -287,8 +295,11 @@ MAKE SURE THE MINER ACCOUNTS ARE FUNDED BEFORE STARTING THE MINING SESSIONS.
         fetch_pubkeys: ["--pubkeys", "-p"]
         collect_sol: ["--collect-sol", "-cs"]
         help: ["--help", "-h"]
+        # V2 Commands
+        upgrade: ["--upgrade"]
+        stake: ["--stake"]
 
-    version: "0.6.5"
+    version: "2.0.0 (beta)"
     ```
 
 ## Debugging
