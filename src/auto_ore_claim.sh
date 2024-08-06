@@ -9,10 +9,10 @@ config_file="$(dirname "$0")/../.config.yaml"
 # Default values
 rpc_url="https://api.mainnet-beta.solana.com"
 keypair="$HOME/.config/solana/id.json"
-priority_fee=1000000 
+priority_fee=10000  # lamports
 recipient=""  # Empty by default for self-claiming
 trigger_level=0.01 # Minimum reward balance to trigger a claim
-hourly_rate=0.001 # ORE per hour for sleep calculation
+hourly_rate=0.001 # ORE per hour for sleep calculation, adjust based on actual rewards rate
 
 # Load configurations from the config file to update the default values
 if [[ -f "$config_file" ]]; then
