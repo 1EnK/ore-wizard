@@ -46,7 +46,7 @@ ore-wizard:
 
   commands:
     setup: ["--setup"]
-    update_urls: ["--update-urls", "-u"]
+    update_scripts: ["--update-scripts", "-u"]
     check_sol_balance: ["--sol-balance", "-s"]
     fund_sol: ["--fund-sol", "-f"]
     check_rewards: ["--rewards", "-r"]

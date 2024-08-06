@@ -202,7 +202,7 @@ MAKE SURE THE MINER ACCOUNTS ARE FUNDED BEFORE STARTING THE MINING SESSIONS.
 ### Commands
 
 - `--setup`: Initialize and configure wallets and mining scripts.
-- `--update-urls` or `-u`: Update the RPC URLs in the Ore scripts.
+- `--update-scripts` or `-u`: Update the RPC URLs and priority fee in the Ore scripts.
 - `--sol-balance` or `-s`: Check the SOL balance for each address.
 - `--fund-sol` or `-f`: Fund the SOL balance for each miner address to maintain the minimum balance.
 - `--rewards` or `-r`: Check the Ore rewards for each address.
@@ -285,7 +285,7 @@ MAKE SURE THE MINER ACCOUNTS ARE FUNDED BEFORE STARTING THE MINING SESSIONS.
 
     commands:
         setup: ["--setup"]
-        update_urls: ["--update-urls", "-u"]
+        update_scripts: ["--update-scripts", "-u"]
         check_sol_balance: ["--sol-balance", "-s"]
         fund_sol: ["--fund-sol", "-f"]
         check_rewards: ["--rewards", "-r"]

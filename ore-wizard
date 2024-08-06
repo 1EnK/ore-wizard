@@ -22,16 +22,16 @@ execute_script() {
 print_help_message() {
     echo "Usage: $0 COMMAND"
     echo "Commands:"
-    echo "  --setup             Initialize and configure wallets and mining scripts."
-    echo "  -u, --update-urls   Update the RPC URLs in the ORE scripts."
-    echo "  -s, --sol-balance   Check the SOL balance for each address."
-    echo "  -f, --fund-sol      Fund each address with SOL to meet the minimum balance."
-    echo "  -r, --rewards       Check the ORE rewards for each address."
-    echo "  -c, --claim         Automate claiming ORE rewards for configured wallets."
-    echo "  -o, --ore-balance   Check the ORE balance for each address."
-    echo "  -m, --start-miners  Start multiple screens for ORE mining sessions."
-    echo "  --pubkeys           Fetch the public keys for each address and export to addr_list.txt."
-    echo "  -cs, --collect-sol  Collect SOL from all addresses to a single address."
+    echo "  --setup               Initialize and configure wallets and mining scripts."
+    echo "  -u, --update-scripts  Update the config (RPC URL, priority_fee) for the mining scripts."
+    echo "  -s, --sol-balance     Check the SOL balance for each address."
+    echo "  -f, --fund-sol        Fund each address with SOL to meet the minimum balance."
+    echo "  -r, --rewards         Check the ORE rewards for each address."
+    echo "  -c, --claim           Automate claiming ORE rewards for configured wallets."
+    echo "  -o, --ore-balance     Check the ORE balance for each address."
+    echo "  -m, --start-miners    Start multiple screens for ORE mining sessions."
+    echo "  --pubkeys             Fetch the public keys for each address and export to addr_list.txt."
+    echo "  -cs, --collect-sol    Collect SOL from all addresses to a single address."
     # V2 Commands, beta features, please use with caution
     echo "  --upgrade           Upgrade the ORE token to V2 in batches."
     echo "  --stake             Stake ORE tokens in batches."
@@ -47,8 +47,8 @@ case "$1" in
     --setup)
         execute_script "ore_setup.sh" "${@:2}"
         ;;
-    --update-urls|-u)
-        execute_script "update_urls.sh" "${@:2}"
+    --update-scripts|-u)
+        execute_script "update_scripts.sh" "${@:2}"
         ;;
     --sol-balance|-s)
         execute_script "check_sol_balance.sh" "${@:2}"
