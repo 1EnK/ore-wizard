@@ -8,7 +8,7 @@ config_file="$(dirname "$0")/../.config.yaml"
 
 # Default values
 default_id_prefix="id_"
-default_priority_fee=100000
+default_priority_fee=10000  # lamports
 default_rpc_url="https://api.mainnet-beta.solana.com"
 default_keypair_dir="$(dirname "$0")/../keypairs"
 default_script_dir="$(dirname "$0")/../scripts"
