@@ -8,7 +8,7 @@ config_file="$(dirname "$0")/../.config.yaml"
 
 # Initialize variables with default values
 default_rpc_url="https://api.mainnet-beta.solana.com"
-default_priority_fee=5000
+default_priority_fee=10000 # lamports
 keypair_dir="$(dirname "$0")/../keypairs"
 
 # Load configurations from the config file to update the default values

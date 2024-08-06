@@ -12,7 +12,7 @@ default_trigger_balance=0.003  # Balance level that triggers the funding action
 default_maintain_balance=0.01  # Balance level to maintain after funding
 default_funding_account_keypair="$HOME/.config/solana/id.json"
 default_addr_list="$(dirname "$0")/../addr_list.txt"
-default_priority_fee=500000  # Compute unit price in lamports as the priority fee
+default_priority_fee=5000  # Compute unit price in lamports as the priority fee
 sleep_duration=14400 # 4 hours
 skip_prompt=false  # Skip prompt if set to true, not functional yet
 

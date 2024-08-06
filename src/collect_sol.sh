@@ -8,7 +8,7 @@ config_file="$(dirname "$0")/../.config.yaml"
 
 # Default configurations
 default_rpc_url="https://api.mainnet-beta.solana.com"
-default_priority_fee=5000  # Default transaction priority fee in lamports
+default_priority_fee=10000  # Default transaction priority fee in lamports
 default_reserved_gas=0.001  # Default amount reserved for transaction fees in SOL, recommended at least 0.001 SOL
 default_fee_payer=""  # Default fee payer uses the sender as the fee payer
 default_recipient=""  # Can't be empty, must be provided by the user
