@@ -49,7 +49,7 @@ for keypair in "$keypair_dir"/*.json; do
     command="ore stake --rpc \"$rpc_url\" --keypair \"$keypair\" --priority-fee \"$priority_fee\""
 
     # Check if an amount has been specified and append it to the command
-    if [[ "$amount" != "max" ]]; then
+    if [[ -n "$amount" && "$amount" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]; then
         command+=" --amount \"$amount\""
     fi
 
